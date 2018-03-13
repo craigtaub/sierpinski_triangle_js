@@ -1,7 +1,7 @@
 console.log('sierpinski_triangle:')
 
 const targetSize = 31;
-let scale = 1;
+// let scale = 1;
 // const targetSize = 1;
 
 function dot(props) {
@@ -46,13 +46,13 @@ function triangle(props) {
 
 function app() {
   let seconds = 0;
-  let elapsed;
-  const start = Date.now();
+  // let elapsed;
+  // const start = Date.now();
 
   function nextFrame() {
-    elapsed = Date.now() - start;
-    const t = (elapsed / 1000) % 10;
-    scale = 1 + (t > 5 ? 10 - t : t) / 10;
+    // elapsed = Date.now() - start;
+    // const t = (elapsed / 1000) % 10;
+    // scale = 1 + (t > 5 ? 10 - t : t) / 10;
 
     window.requestAnimationFrame(() => {
       nextFrame();
@@ -67,7 +67,7 @@ function app() {
   }
 
   function topTriangle(seconds) {
-    document.getElementById('app').innerHTML = '';
+    document.getElementById('app').innerHTML = ''; // reset
     triangle({
       x: 0,
       y: 0,
