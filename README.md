@@ -14,3 +14,9 @@
 ### NOTE:
 - DONT use canvas, the frameworks dont (e.g react).
 - PERHAPS use easier shape e.g. dot
+
+### RESULTS:
+- if low FPS:
+  - everything on browser is slower
+  - if click mouse/keyboard, will halt browsers progress
+- if draw on top, much heavier than if clear first.

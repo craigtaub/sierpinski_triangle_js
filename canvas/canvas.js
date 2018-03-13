@@ -5,29 +5,33 @@ var ctx = canvas.getContext("2d");
  
 var trgs    = []; // array of triangles
 var dim     = 500; // dimension of main triangle  
-
+let number = 0;
 // NOTE: canvas y starts top-left.
 // (Math.sqrt(3)*dim)/2 = formula for the top vertex
 
-var trg = { // declare main triangle: 3 verticies, each with x,y
-  c:  "black", // extra
-  ly: canvas.height,
-  lx: 0,
-  ry: canvas.height,
-  rx: dim,
-  ty: canvas.height - (Math.sqrt(3)*dim)/2,
-  tx: dim/2,
-  di: dim // extra
-};
+function start() {
+  var trg = { // declare main triangle: 3 verticies, each with x,y
+    c:  "black", // extra
+    ly: canvas.height,
+    lx: 0,
+    ry: canvas.height,
+    rx: dim,
+    ty: canvas.height - (Math.sqrt(3)*dim)/2,
+    tx: dim/2,
+    di: dim // extra
+  };
 
-trgs.push(trg); // add to array
+  trgs.push(trg); // add to array
+}
 
-
-fractal_iteration();
-fractal_iteration();
-fractal_iteration();
-
-
+setInterval(() => {
+  trgs = [];
+  start();
+  fractal_iteration();
+  fractal_iteration();
+  fractal_iteration();
+  number++;
+}, 1000)
 
 function fractal_iteration() {
   ctx.clearRect(0,0,canvas.width,canvas.height); // clear screen each iteration
@@ -102,14 +106,15 @@ function fractal_iteration() {
 
 function drawTrg(t){ // seperate all calls to canvas context
   ctx.beginPath();
+  const addon = number*10;
   ctx.moveTo(t.lx, t.ly);
-  ctx.lineTo(t.rx, t.ry);
-  ctx.lineTo(t.tx, t.ty);
-  ctx.lineTo(t.lx, t.ly);
+  ctx.lineTo(t.rx+addon, t.ry);
+  ctx.lineTo(t.tx+addon, t.ty);
+  ctx.lineTo(t.lx+addon, t.ly);
   ctx.fillStyle = t.c;
   ctx.fill();
 
   ctx.fillStyle = 'red';
-  ctx.fillText("Hello", t.lx+20,t.ly-20); // centre text
+  ctx.fillText(number, t.lx+20+addon,t.ly-20); // centre text
   ctx.closePath();
 };
