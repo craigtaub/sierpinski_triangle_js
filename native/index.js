@@ -1,12 +1,29 @@
 console.log('sierpinski_triangle:')
 
+/* 
+FIRST:
+- wipe DOM
+- write 1 at a time to DOM
+- repeat
+- RESULTS: 0.4fps
+
+SECOND:
+- reset array
+- write 1 at time array, 
+- on requestAnimationFrame write to DOM at once
+- RESULTS: 50fps
+*/
+
+let dots = [];
+
 const targetSize = 31;
 // let scale = 1;
 // const targetSize = 1;
 
 function dot(props) {
   // document.getElementById('app').style.transform = 'scaleX(' + (scale / 2.1) + ') scaleY(0.7) translateZ(0.1px)';
-  document.getElementById('app').innerHTML += "<span class='dot' style='left: " + props.x + "; top: " + props.y + "; padding-left: " + 2 * props.text + "px'>" + props.text + "</span>";
+  // document.getElementById('app').innerHTML += "<span class='dot' style='left: " + props.x + "; top: " + props.y + "; padding-left: " + 2 * props.text + "px'>" + props.text + "</span>";
+  dots.push("<span class='dot' style='left: " + props.x + "; top: " + props.y + "; padding-left: " + 2 * props.text + "px'>" + props.text + "</span>");
 }
 
 function triangle(props) {
@@ -54,7 +71,10 @@ function app() {
     // const t = (elapsed / 1000) % 10;
     // scale = 1 + (t > 5 ? 10 - t : t) / 10;
 
-    window.requestAnimationFrame(() => {
+    window.requestAnimationFrame(() => { 
+      // batch actions + call in here to release throttling on DOM
+      const string = dots.reduce((acc, curr) => curr += acc, '');
+      document.getElementById('app').innerHTML = string;
       nextFrame();
     });
   };
@@ -67,7 +87,8 @@ function app() {
   }
 
   function topTriangle(seconds) {
-    document.getElementById('app').innerHTML = ''; // reset
+    dots = [];
+    // document.getElementById('app').innerHTML = ''; // reset
     triangle({
       x: 0,
       y: 0,

@@ -11,12 +11,22 @@
 
 4. Repeat point 3 for each iteration.
 
-### NOTE:
-- DONT use canvas, the frameworks dont (e.g react).
-- PERHAPS use easier shape e.g. dot
+### Native DOM notes
+W/O requestAnimationFrame:
+- wipe DOM
+- write 1 at a time to DOM
+- repeat
+- RESULTS: 0.4fps
 
-### RESULTS:
+With requestAnimationFrame:
+- reset array
+- write 1 at time array, 
+- on requestAnimationFrame write to DOM at once
+- RESULTS: 50fps
+
+
+### Performance notes:
 - if low FPS:
-  - everything on browser is slower
+  - everything on browser is slower to react
   - if click mouse/keyboard, will halt browsers progress
 - if draw on top, much heavier than if clear first.
