@@ -1,19 +1,5 @@
 console.log('sierpinski_triangle:')
 
-/* 
-FIRST:
-- wipe DOM
-- write 1 at a time to DOM
-- repeat
-- RESULTS: 0.4fps
-
-SECOND:
-- reset array
-- write 1 at time array, 
-- on requestAnimationFrame write to DOM at once
-- RESULTS: 50fps
-*/
-
 let dots = [];
 
 const targetSize = 31;
@@ -72,7 +58,10 @@ function app() {
     // scale = 1 + (t > 5 ? 10 - t : t) / 10;
 
     window.requestAnimationFrame(() => { 
-      // batch actions + call in here to release throttling on DOM
+      // TELL browser want to perform animation, will call this BEFORE it calls next repaint.
+        // i.e. batch all actions in here for single repaint/reflow + less DOM throttle.
+      // USE to interact with CSS/HTML via JS.
+      // CAN call 60 times per second BUT has intelligence to match display refresh rate in browser.
       const string = dots.reduce((acc, curr) => curr += acc, '');
       document.getElementById('app').innerHTML = string;
       nextFrame();
